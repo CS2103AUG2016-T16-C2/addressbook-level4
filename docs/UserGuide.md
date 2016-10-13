@@ -1,7 +1,7 @@
 # User Guide
 
 1. [About the Task Manager](#about-the-task-manager)
-2. [Ouick Start Guide](#quick-start-guide)
+2. [Quick Start Guide](#quick-start-guide)
 3. [Command Summary](#command-summary)
 4. [Features](#features)
 5. [FAQ](#faq)
@@ -18,7 +18,9 @@ This product is meant to address the concerns of users who wish to schedule thei
    
 1. Download the latest 'The Practical Task Manager' file (tptm.jar) from the [releases](../../../releases) tab.
 2. Copy the file to a suitable location on your computer. This location will serve as the home folder for the Task Manager.
-3. Double-click the file to start the application. The GUI should appear in a few seconds (Figure 1). 
+3. Double-click the file to start the application. The GUI should appear as reflected in the image below in a few seconds.
+
+<center><img src="./images/Ui.png" width="600"><br>
 4. Type a command in the command box and press <kbd>enter</kbd> to execute it. Depending on the command, the Task Manager will respond by displaying a message in the console window.
 5. Some example commands you can try:
    * **'list'** : lists all tasks
@@ -27,9 +29,7 @@ This product is meant to address the concerns of users who wish to schedule thei
    * **'exit'** : exits the application
 6. Refer to the [Features](#features) section below for details of each command.<br>
 
-![Image of UI](https://github.com/Halo3fanz/main/blob/master/docs/images/Ui.png)
-Figure 1                                                          
-
+                                                          
 ## Command Summary
 
 Command | Format  
