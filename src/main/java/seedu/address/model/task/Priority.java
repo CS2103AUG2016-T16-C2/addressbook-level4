@@ -3,18 +3,14 @@ package seedu.address.model.task;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 
-/**
- * Represents a Task's priority in the task manager.
- * Guarantees: immutable; is valid as declared in {@link #isValidPriority(String)}
- */
 public class Priority {
 
     public static final String MESSAGE_PRIORITY_CONSTRAINTS =
             "Task priority should be an integer between 1 and 5";
-    public static final String PRIORITY_VALIDATION_REGEX = "[\\w\\.]+";
+    public static final String PRIORITY_VALIDATION_REGEX = "\\d+";
 
-    public final String value;
-
+    public String value;
+    
     /**
      * Validates given priority.
      *
@@ -36,9 +32,9 @@ public class Priority {
     	if(Integer.parseInt(test) > 0 && Integer.parseInt(test) < 6) {
     		return test.matches(PRIORITY_VALIDATION_REGEX);
     	}
-    	return false;
+    	return true;
     }
-
+    
     @Override
     public String toString() {
         return value;

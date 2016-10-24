@@ -19,15 +19,15 @@ public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the task manager. "
-            + "Parameters: NAME p/PRIORITY" 
+            + "Parameters: NAME" 
             + " Example: " + COMMAND_WORD
-            + " CS2103T Software Engineeringv0.1 p/1";
+            + " CS2103T Software Engineeringv0.1";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task manager.";
 
     private final Task toAdd;
-
+    
     /**
      * Convenience constructor using raw values.
      *
@@ -35,7 +35,7 @@ public class AddCommand extends Command {
      * @throws ParseException 
      */
     public AddCommand(String name, String startline, Set<String> deadlines, String priority, Set<String> tags)
-            throws IllegalValueException {
+            throws IllegalValueException, ParseException {
     	final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
