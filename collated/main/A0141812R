@@ -1,0 +1,286 @@
+# A0141812R
+###### \java\seedu\address\logic\commands\AddCommand.java
+``` java
+    		+ "Parameters: NAME" 
+            + " Example: " + COMMAND_WORD
+            + " CS2103T Software Engineeringv0.1";
+```
+###### \java\seedu\address\logic\commands\AddCommand.java
+``` java
+        this.toAdd = new Task(
+                new Name(name),
+                new Startline(startline),
+                new Deadline(deadline),
+                new Priority(priority),
+                new UniqueTagList(tagSet)
+        );
+```
+###### \java\seedu\address\logic\parser\Parser.java
+``` java
+    private static final Pattern PERSON_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
+            Pattern.compile("(?<name>[^/]+)"
+            		+ "(?<startline>(?: s/[^/]+)*)"
+                    + "(?<deadline>(?: d/[^/]+)*)"
+                    + "(?<priority>(?: p/[^/]+)*)"
+                    + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
+    
+    private static final Pattern EDIT_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
+            Pattern.compile("(?<targetIndex>.+)"
+            		+ " (?<name>[^/]+)"
+            		+ "s/(?<startline>[^/]+)"
+            		+ "d/(?<deadline>[^/]+)"
+                    + "(?<priority>(?: p/[^/]+)*)"
+                    + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
+```
+###### \java\seedu\address\logic\parser\Parser.java
+``` java
+    private Command prepareAdd(String args) throws ParseException{
+        final Matcher matcher = PERSON_DATA_ARGS_FORMAT.matcher(args.trim());
+        // Validate arg string format
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        }
+        try {
+            return new AddCommand(
+                    matcher.group("name"),
+                    getStartlineFromArgs(matcher.group("startline")),
+                    getDeadlinesFromArgs(matcher.group("deadline")),
+                    getPriorityFromArgs(matcher.group("priority")),
+                    getTagsFromArgs(matcher.group("tagArguments"))
+            );
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(ive.getMessage());
+        }
+    }
+```
+###### \java\seedu\address\logic\parser\Parser.java
+``` java
+    private String getPriorityFromArgs(String args) {
+        if (args.isEmpty()) {
+            return "0";
+        }
+        args = args.replaceFirst(" p/", "");
+
+        return args;
+    }
+```
+###### \java\seedu\address\logic\parser\Parser.java
+``` java
+    private Command prepareEdit(String args) throws ParseException{
+    	final Matcher matcher = EDIT_DATA_ARGS_FORMAT.matcher(args.trim());
+        // Validate arg string format
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        }
+        try {
+            return new EditCommand(
+            		matcher.group("targetIndex"),
+                    matcher.group("name"),
+                    getStartlineFromArgs(matcher.group("startline")),
+                    getDeadlinesFromArgs(matcher.group("deadline")),
+                    getPriorityFromArgs(matcher.group("priority")),
+                    getTagsFromArgs(matcher.group("tagArguments"))
+            );
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(ive.getMessage());
+        }
+    }
+```
+###### \java\seedu\address\model\deadline\Deadline.java
+``` java
+package seedu.address.model.deadline;
+
+import seedu.address.model.task.Startline;
+
+import seedu.address.commons.exceptions.IllegalValueException;
+
+/**
+ * Represents a Task's deadline in the task manager.
+ * Guarantees: immutable; is valid as declared in {@link #isValidDeadline(String)}
+ */
+public class Deadline extends Startline {
+    
+    public static final String MESSAGE_ADDRESS_CONSTRAINTS = "Task deadline must be in ddmmyy or dd-MM-yy format.";
+    public static final String DEADLINE_VALIDATION_REGEX = "\\d+";
+    public static final String DEADLINE_DASH_VALIDATION_REGEX = "[\\d]+-[\\d]+-[\\d]+";
+
+	public String deadlineDate;
+
+    /**
+     * Validates given deadline.
+     *
+     * @throws IllegalValueException if given date string is invalid.
+     */
+    public Deadline(String deadline) throws IllegalValueException {
+    	super(deadline);
+    }
+
+}
+```
+###### \java\seedu\address\model\task\Priority.java
+``` java
+package seedu.address.model.task;
+
+
+import seedu.address.commons.exceptions.IllegalValueException;
+
+/**
+ * Represents a Task's priority in the task manager.
+ * Guarantees: immutable; is valid as declared in {@link #isValidPriority(String)}
+ */
+public class Priority {
+
+    public static final String MESSAGE_PRIORITY_CONSTRAINTS =
+            "Task priority should be an integer between 1 and 5";
+    public static final String PRIORITY_VALIDATION_REGEX = "\\d+";
+
+    public String value;
+    
+    /**
+     * Validates given priority.
+     *
+     * @throws IllegalValueException if given priority string is invalid.
+     */
+    public Priority(String priority) throws IllegalValueException {
+        assert priority != null;
+        priority = priority.trim();
+        if (!isValidPriority(priority)) {
+            throw new IllegalValueException(MESSAGE_PRIORITY_CONSTRAINTS);
+        }
+        this.value = priority;
+    }
+
+    /**
+     * Returns if a given string is a valid priority.
+     */
+    public static boolean isValidPriority(String test) {
+    	if(Integer.parseInt(test) >= 0 && Integer.parseInt(test) < 6) {
+    		return test.matches(PRIORITY_VALIDATION_REGEX);
+    	}
+    	return true;
+    }
+    
+    @Override
+    public String toString() {
+        return value;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof Priority // instanceof handles nulls
+                && this.value.equals(((Priority) other).value)); // state check
+    }
+
+    @Override
+    public int hashCode() {
+        return value.hashCode();
+    }
+    
+ 
+
+}
+```
+###### \java\seedu\address\model\task\Task.java
+``` java
+package seedu.address.model.task;
+
+import seedu.address.commons.util.CollectionUtil;
+import seedu.address.model.deadline.Deadline;
+import seedu.address.model.tag.UniqueTagList;
+
+import java.util.Objects;
+
+/**
+ * Represents a Task in the Task Manager.
+ * Guarantees: details are present and not null, field values are validated.
+ */
+public class Task implements ReadOnlyTask {
+
+    private Name name;
+    private Priority priority;
+    private Startline startline;
+    private Deadline deadline;
+
+    private UniqueTagList tags;
+
+    /**
+     * Every field must be present and not null.
+     */
+    public Task(Name name, Startline startline, Deadline deadline, Priority priority, UniqueTagList tags) {
+        assert !CollectionUtil.isAnyNull(name, startline, deadline, priority, tags);
+        this.name = name;
+        this.startline = startline;
+        this.deadline = deadline;
+        this.priority = priority;
+        this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+    }
+
+    /**
+     * Copy constructor.
+     */
+    public Task(ReadOnlyTask source) {
+        this(source.getName(), source.getStartline(), source.getDeadline(), source.getPriority(), source.getTags());
+    }
+
+    @Override
+    public Name getName() {
+        return name;
+    }
+
+    @Override
+    public Priority getPriority() {
+        return priority;
+    }
+    
+    @Override
+    public Startline getStartline(){
+    	return startline;
+    }
+
+    @Override
+    public Deadline getDeadline() {
+        return deadline;
+    }
+
+    @Override
+    public UniqueTagList getTags() {
+        return new UniqueTagList(tags);
+    }
+    
+    /**
+     * Replaces this person's deadlines with the deadlines in the argument deadline list.
+     */
+    public void setDeadline(Deadline replacement) {
+        deadline = replacement;
+    }
+
+
+    /**
+     * Replaces this person's tags with the tags in the argument tag list.
+     */
+    public void setTags(UniqueTagList replacement) {
+        tags.setTags(replacement);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof ReadOnlyTask // instanceof handles nulls
+                && this.isSameStateAs((ReadOnlyTask) other));
+    }
+
+    @Override
+    public int hashCode() {
+        // use this method for custom fields hashing instead of implementing your own
+        return Objects.hash(name, deadline, priority, tags);
+    }
+
+    @Override
+    public String toString() {
+        return getAsText();
+    }
+
+
+}
+```

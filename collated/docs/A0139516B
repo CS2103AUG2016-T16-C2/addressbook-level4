@@ -1,0 +1,94 @@
+# A0139516B
+###### \AboutUs.md
+``` md
+#### [Ong Li-Jen](https://github.com/lijen1994) <br>
+<img src="images/OngLiJen.png" width="150"><br>
+Role: Project Lead <br>  
+Responsibilities: Code Quality
+
+-----
+```
+###### \AboutUs.md
+``` md
+#### [Zhang Hao](https://github.com/e0008233)
+<img src="images/ZhangHao.png" width="150"><br>
+Role: Developer <br>  
+Responsibilities: Dev Ops
+
+-----
+```
+###### \DeveloperGuide.md
+``` md
+# Developer Guide 
+
+* [Introduction](#introduction)
+* [Setting Up](#setting-up)
+* [Design](#design)
+* [Implementation](#implementation)
+* [Testing](#testing)
+* [Dev Ops](#dev-ops)
+* [Appendix A: User Stories](#appendix-a--user-stories)
+* [Appendix B: Use Cases](#appendix-b--use-cases)
+* [Appendix C: Non Functional Requirements (#appendix-c--non-functional-requirements)
+* [Appendix D: Glossary](#appendix-d--glossary)
+* [Appendix E: Product Survey's](#appendix-e--product-surveys)
+
+
+## Introduction 
+
+This guide will allow you as a developer to obtain a better understanding of how 'The Practical Task Manager' functions. This task manager was designed based on two main principles, that the user would find it intuitive to use and simple to understand. 
+```
+###### \DeveloperGuide.md
+``` md
+### UI component
+
+<img src="images/UIdiagram.png" width="800"><br>
+Figure 5: UI Class Diagram
+
+**API** : [`Ui.java`](../src/main/java/seedu/address/ui/Ui.java)
+
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `TaskListPanel`,
+`StatusBarFooter`, etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class
+and they can be loaded using the `UiPartLoader`.
+
+The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files
+ that are in the `src/main/resources/view` folder.<br>
+ For example, the layout of the [`MainWindow`](../src/main/java/seedu/address/ui/MainWindow.java) is specified in
+ [`MainWindow.fxml`](../src/main/resources/view/MainWindow.fxml)
+
+The `UI` component,
+* Executes user commands using the `Logic` component.
+* Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
+* Responds to events raised from various parts of the App and updates the UI accordingly.
+
+### Logic component
+
+<img src="images/LogicClassDiagram.png" width="800"><br>
+Figure 6 : Logic Class Diagram
+
+**API** : [`Logic.java`](../src/main/java/seedu/address/logic/Logic.java)
+
+* `Logic` uses the `Parser` class to parse the user command.
+* This results in a `Command` object which is executed by the `LogicManager`.
+* The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
+* The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
+
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`
+ API call.<br>
+<img src="images/logicDiagram.png" width="800"><br>
+Figure 7: Sequence Diagram Within Logic For Delete Task
+
+### Model component
+
+<img src="images/modelDiagram.png" width="800"><br>
+Figure 8: Model Class Diagram
+
+**API** : [`Model.java`](../src/main/java/seedu/address/model/Model.java)
+
+The `Model`,
+* stores a `UserPref` object that represents the user's preferences.
+* stores the Address Book data.
+* exposes a `UnmodifiableObservableList<ReadOnlyTask>` that can be 'observed' e.g. the UI can be bound to this list
+  so that the UI automatically updates when the data in the list change.
+* does not depend on any of the other three components.
+```

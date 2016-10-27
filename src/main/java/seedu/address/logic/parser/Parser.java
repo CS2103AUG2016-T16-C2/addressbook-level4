@@ -36,9 +36,9 @@ public class Parser {
     
     private static final Pattern EDIT_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<targetIndex>.+)"
-            		+ " (?<name>[^/]+)"
-            		+ "s/(?<startline>[^/]+)"
-            		+ "d/(?<deadline>[^/]+)"
+            		+ " (?<name>[^/]+)" //only name is compulsory
+            		+ "(?<startline>(?: s/[^/]+)*)"
+            		+ "(?<deadline>(?: d/[^/]+)*)"
                     + "(?<priority>(?: p/[^/]+)*)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
@@ -90,7 +90,7 @@ public class Parser {
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
 
-	case ListAllCommand.COMMAND_WORD:
+	    case ListAllCommand.COMMAND_WORD:
             return new ListAllCommand();
 
         case ExitCommand.COMMAND_WORD:
@@ -104,6 +104,12 @@ public class Parser {
         	
         case ClashCommand.COMMAND_WORD:
         	return new ClashCommand();
+        	
+        case UndoCommand.COMMAND_WORD:
+            return new UndoCommand();
+            
+        case RevertCommand.COMMAND_WORD:
+        	return new RevertCommand();
 
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);

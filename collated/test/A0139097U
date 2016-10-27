@@ -1,0 +1,46 @@
+# A0139097U
+###### \java\seedu\address\testutil\TestTask.java
+``` java
+    @Override
+    public Priority getPriority() {
+        return priority;
+    }
+    
+    @Override
+    public Startline getStartline(){
+    	return startline;
+    }
+
+    @Override
+    public Deadline getDeadline() {
+        return deadlines;
+    }
+```
+###### \java\seedu\address\testutil\TestTask.java
+``` java
+    public String getAddCommand() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("add " + this.getName().fullName + " ");
+        sb.append("s/" + this.getStartline().value + " ");
+        sb.append("d/" + this.getDeadline().value + " ");
+        sb.append("p/" + this.getPriority().value + " ");
+        this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
+        return sb.toString();
+    }
+```
+###### \java\seedu\address\testutil\TestUtil.java
+``` java
+    private static Task[] getSamplePersonData() {
+        try {
+            return new Task[]{
+                    new Task(new Name("Task Manager v01"), new Startline("101010 12:00"), new Deadline("061016 23:00"), new Priority("2"), new UniqueTagList()),
+                    new Task(new Name("Task Manager v02"), new Startline("101010 12:00"), new Deadline("131016 23:00"), new Priority("1"), new UniqueTagList()),
+                    new Task(new Name("Task Manager v03"), new Startline("101010 12:00"), new Deadline("201016 23:00"), new Priority("3"), new UniqueTagList()),
+                    new Task(new Name("Task Manager v04"), new Startline("101010 12:00"), new Deadline("271016 23:00"), new Priority("4"), new UniqueTagList()),
+                    new Task(new Name("Task Manager v05"), new Startline("101010 12:00"), new Deadline("948222 23:00"), new Priority("5"), new UniqueTagList()),
+                    new Task(new Name("Task Manager v06"), new Startline("101010 12:00"), new Deadline("948242 23:00"), new Priority("1"), new UniqueTagList()),
+                    new Task(new Name("Task Manager v07"), new Startline("101010 12:00"), new Deadline("948244 23:00"), new Priority("2"), new UniqueTagList()),
+                    new Task(new Name("Task Manager v08"), new Startline("101010 12:00"), new Deadline("848242 23:00"), new Priority("3"), new UniqueTagList()),
+                    new Task(new Name("Task Manager v09"), new Startline("101010 12:00"), new Deadline("848213 23:00"), new Priority("3"), new UniqueTagList())
+            };
+```

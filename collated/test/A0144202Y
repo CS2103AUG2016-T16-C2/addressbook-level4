@@ -1,0 +1,32 @@
+# A0144202Y
+###### \java\seedu\address\testutil\TaskBuilder.java
+``` java
+    public TaskBuilder withStartline(String startline) throws IllegalValueException{
+    	this.task.setStartline(new Startline(startline));
+    	return this;
+    }
+
+    public TaskBuilder withDeadline(String deadline) throws IllegalValueException {
+    	this.task.setDeadline(new Deadline(deadline));
+        return this;
+    }
+
+    public TaskBuilder withPriority(String priority) throws IllegalValueException {
+        this.task.setPriority(new Priority(priority));
+        return this;
+    }
+```
+###### \java\seedu\address\testutil\TestTask.java
+``` java
+    public void setStartline(Startline startline){
+    	this.startline = startline;
+    }
+
+    public void setDeadline(Deadline deadline) {
+        this.deadlines = deadline;
+    }
+
+    public void setPriority(Priority priority) {
+        this.priority = priority;
+    }
+```

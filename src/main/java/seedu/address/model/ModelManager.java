@@ -86,6 +86,28 @@ public class ModelManager extends ComponentManager implements Model {
 		updateFilteredListToShowAll();
 		indicateAddressBookChanged();
 	}
+	
+	@Override
+	public void currentState(String command) {
+		stateManager.currentState(new TaskCommandState(addressBook, command));	
+	}
+
+	@Override
+	public String getPreviousState() throws FinishStateException {
+		TaskCommandState previousState = stateManager.getPreviousState();
+		return getState(previousState);
+	}
+
+	@Override
+	public String getInitialState() throws FinishStateException {
+		TaskCommandState initialState = stateManager.getInitialState();
+		return getState(initialState);
+	}
+	
+	private String getState(TaskCommandState state) {
+		resetData(state.getTaskCommand());
+		return state.getCommand();
+	}
 
 	// =========== Filtered Person List Accessors
 	// ===============================================================
@@ -199,9 +221,14 @@ public class ModelManager extends ComponentManager implements Model {
 
 		@Override
 		public boolean run(ReadOnlyTask person) {
-			return nameKeyWords.stream()
-					.filter(keyword -> StringUtil.containsIgnoreCase(person.getName().fullName, keyword)).findAny()
-					.isPresent();
+			boolean isContained = false;
+			
+			for (String temp : nameKeyWords){
+				if (person.getName().toString().toLowerCase().contains(temp.toLowerCase()))
+				    isContained = true;
+				
+			}
+			return isContained;
 		}
 
 		@Override
