@@ -1,5 +1,6 @@
 package seedu.address.model;
 
+//@@author A0144202Y
 import javafx.collections.ObservableList;
 import seedu.address.model.deadline.Deadline;
 import seedu.address.model.tag.Tag;
@@ -12,41 +13,44 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * Wraps all data at the task manager level
- * Duplicates are not allowed (by .equals comparison)
+ * Wraps all data at the task manager level Duplicates are not allowed (by
+ * .equals comparison)
  */
 public class TaskManager implements ReadOnlyTaskManager {
 
-    private final UniqueTaskList tasks;
-    private final UniqueTagList tags;
+	private final UniqueTaskList tasks;
+	private final UniqueTagList tags;
 
-    {
-        tasks = new UniqueTaskList();
-        tags = new UniqueTagList();
-    }
+	{
+		tasks = new UniqueTaskList();
+		tags = new UniqueTagList();
+	}
 
-    public TaskManager() {}
+	public TaskManager() {
+	}
 
-    /**
-     * Tasks and Tags are copied into this task manager
-     */
-    public TaskManager(ReadOnlyTaskManager toBeCopied) {
-        this(toBeCopied.getUniqueTaskList(), toBeCopied.getUniqueTagList());
-    }
+	/**
+	 * Tasks and Tags are copied into this task manager
+	 */
+	public TaskManager(ReadOnlyTaskManager toBeCopied) {
+		this(toBeCopied.getUniqueTaskList(), toBeCopied.getUniqueTagList());
+	}
 
+	// @@author
     /**
      * Persons and Tags are copied into this task manager
      */
     public TaskManager(UniqueTaskList persons, UniqueTagList tags) {
         resetData(persons.getInternalList(), tags.getInternalList());
     }
-
+  //@@author A0139516B
     public static ReadOnlyTaskManager getEmptyTaskManager() {
         return new TaskManager();
     }
-
+  //@@author
+    
 //// list overwrite operations
-
+  //@@author A0139516B
     public ObservableList<Task> getTasks() {
         return tasks.getInternalList();
     }
@@ -54,6 +58,7 @@ public class TaskManager implements ReadOnlyTaskManager {
     public void setTasks(List<Task> tasks) {
         this.tasks.getInternalList().setAll(tasks);
     }
+  //@@author
     
     public void setTags(Collection<Tag> tags) {
         this.tags.getInternalList().setAll(tags);
@@ -77,11 +82,12 @@ public class TaskManager implements ReadOnlyTaskManager {
      *
      * @throws UniqueTaskList.DuplicateTaskException if an equivalent task already exists.
      */
+  //@@author A0139516B 
     public void addTask(Task p) throws UniqueTaskList.DuplicateTaskException {
         syncTagsWithMasterList(p);
         tasks.add(p);
     }
-
+  //@@author  
     /**
      * Ensures that every tag in this task:
      *  - exists in the master list {@link #tags}
@@ -167,3 +173,4 @@ public class TaskManager implements ReadOnlyTaskManager {
     	return tasks.contains(task);
     }
 }
+//@@author 

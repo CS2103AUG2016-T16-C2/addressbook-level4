@@ -1,3 +1,4 @@
+//@@author A0139516B
 package seedu.address.model.task;
 
 import seedu.address.model.deadline.Deadline;
@@ -61,3 +62,4 @@ public interface ReadOnlyTask {
     }
    
 }
+//@@author

@@ -1,3 +1,4 @@
+//@@author A0144202Y
 package seedu.address.logic.commands;
 
 /**
@@ -16,3 +17,4 @@ public class ListAllCommand extends Command{
 	     return new CommandResult(MESSAGE_SUCCESS);
 	 }
 }
+//@@author 

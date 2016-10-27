@@ -16,12 +16,14 @@ public class PersonCard extends UiPart{
     private Label name;
     @FXML
     private Label id;
+  //@@author A0139516B 
     @FXML
     private Label startline;
     @FXML
     private Label deadlines;
     @FXML
     private Label priority;
+  //@@author
     @FXML
     private Label tags;
 
@@ -43,9 +45,11 @@ public class PersonCard extends UiPart{
     public void initialize() {
         name.setText(task.getName().fullName);
         id.setText(displayedIndex + ". ");
+      //@@author A0139516B 
         startline.setText("Start: " + task.getStartline().value);
         deadlines.setText("End: " + task.getDeadline().value);
         priority.setText("Priority: " + task.getPriority().value);
+      //@@author 
         tags.setText(task.tagsString());
     }
 

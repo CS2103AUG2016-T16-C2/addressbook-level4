@@ -25,13 +25,16 @@ public class XmlSerializableAddressBook implements ReadOnlyTaskManager {
     private List<XmlAdaptedPerson> persons;
     @XmlElement
     private List<Tag> tags;
+  //@@author A0139097U
     @XmlElement
     private List<Deadline> deadlines;
-
+  //@@author 
     {
         persons = new ArrayList<>();
         tags = new ArrayList<>();
+      //@@author A0139097U
         deadlines = new ArrayList<>();
+      //@@author 
     }
 
     /**
@@ -58,6 +61,7 @@ public class XmlSerializableAddressBook implements ReadOnlyTaskManager {
         }
     }
     
+  //@@author A0139516B 
     @Override
     public UniqueTaskList getUniqueTaskList() {
         UniqueTaskList lists = new UniqueTaskList();
@@ -70,7 +74,7 @@ public class XmlSerializableAddressBook implements ReadOnlyTaskManager {
         }
         return lists;
     }
-
+  //@@author 
     @Override
     public List<ReadOnlyTask> getTaskList() {
         return persons.stream().map(p -> {

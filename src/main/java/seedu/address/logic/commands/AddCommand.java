@@ -18,9 +18,11 @@ public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the task manager. "
-            + "Parameters: NAME" 
+//@@author A0141812R
+    		+ "Parameters: NAME" 
             + " Example: " + COMMAND_WORD
             + " CS2103T Software Engineeringv0.1";
+//@@author 
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task manager.";
@@ -40,7 +42,7 @@ public class AddCommand extends Command {
             tagSet.add(new Tag(tagName));
         }
         
-        
+//@@author A0141812R        
         this.toAdd = new Task(
                 new Name(name),
                 new Startline(startline),
@@ -48,6 +50,7 @@ public class AddCommand extends Command {
                 new Priority(priority),
                 new UniqueTagList(tagSet)
         );
+//@@author
     }
 
     @Override

@@ -7,6 +7,7 @@ import seedu.address.model.task.*;
 /**
  * A mutable person object. For testing only.
  */
+//@@author A0141812R
 public class TestTask implements ReadOnlyTask {
 
     private Name name;
@@ -14,7 +15,8 @@ public class TestTask implements ReadOnlyTask {
     private Deadline deadlines;
     private Priority priority;
     private UniqueTagList tags;
-
+  //@@author
+    
     public TestTask() {
         tags = new UniqueTagList();
     }
@@ -22,7 +24,7 @@ public class TestTask implements ReadOnlyTask {
     public void setName(Name name) {
         this.name = name;
     }
-    
+  //@@author A0144202Y
     public void setStartline(Startline startline){
     	this.startline = startline;
     }
@@ -34,12 +36,12 @@ public class TestTask implements ReadOnlyTask {
     public void setPriority(Priority priority) {
         this.priority = priority;
     }
-
+  //@@author
     @Override
     public Name getName() {
         return name;
     }
-
+  //@@author A0139097U
     @Override
     public Priority getPriority() {
         return priority;
@@ -54,7 +56,7 @@ public class TestTask implements ReadOnlyTask {
     public Deadline getDeadline() {
         return deadlines;
     }
-
+    //@@author
     @Override
     public UniqueTagList getTags() {
         return tags;
@@ -64,7 +66,7 @@ public class TestTask implements ReadOnlyTask {
     public String toString() {
         return getAsText();
     }
-
+  //@@author A0139097U
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getName().fullName + " ");
@@ -74,5 +76,6 @@ public class TestTask implements ReadOnlyTask {
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }
+  //@@author 
 }
  

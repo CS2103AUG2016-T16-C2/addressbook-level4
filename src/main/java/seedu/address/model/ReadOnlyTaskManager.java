@@ -1,5 +1,6 @@
 package seedu.address.model;
 
+//@@author A0139097U
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.ReadOnlyTask;
@@ -16,7 +17,8 @@ public interface ReadOnlyTaskManager {
 
     UniqueTaskList getUniqueTaskList();
     
-
+  //@@author 
+  //@@author A0144202Y
     /**
      * Returns an unmodifiable view of tasks list
      */
@@ -28,3 +30,4 @@ public interface ReadOnlyTaskManager {
     List<Tag> getTagList();
 
 }
+//@@author 

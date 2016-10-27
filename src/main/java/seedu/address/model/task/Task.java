@@ -1,3 +1,4 @@
+//@@author A0141812R
 package seedu.address.model.task;
 
 import seedu.address.commons.util.CollectionUtil;
@@ -98,3 +99,4 @@ public class Task implements ReadOnlyTask {
 
 
 }
+//@@author 

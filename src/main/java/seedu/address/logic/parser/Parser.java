@@ -27,6 +27,7 @@ public class Parser {
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
 
+  //@@author A0141812R
     private static final Pattern PERSON_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>[^/]+)"
             		+ "(?<startline>(?: s/[^/]+)*)"
@@ -41,7 +42,7 @@ public class Parser {
             		+ "d/(?<deadline>[^/]+)"
                     + "(?<priority>(?: p/[^/]+)*)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
-
+  //@@author 
     public Parser() {}
 
     /**
@@ -63,7 +64,8 @@ public class Parser {
 
         case AddCommand.COMMAND_WORD:
             return prepareAdd(arguments);
-			
+	
+    //@@author A0144202Y
 	case CompleteCommand.COMMAND_WORD:
        		try {
 			return prepareComplete(arguments);
@@ -71,7 +73,8 @@ public class Parser {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+       	//@@author 
+       		
         case SelectCommand.COMMAND_WORD:
             return prepareSelect(arguments);
         
@@ -117,6 +120,8 @@ public class Parser {
      * @return the prepared command
      * @throws ParseException 
      */
+    
+  //@@author A0141812R
     private Command prepareAdd(String args) throws ParseException{
         final Matcher matcher = PERSON_DATA_ARGS_FORMAT.matcher(args.trim());
         // Validate arg string format
@@ -135,7 +140,9 @@ public class Parser {
             return new IncorrectCommand(ive.getMessage());
         }
     }
+  //@@author 
     
+  //@@author A0139097U
     /**
      * Checks if user inputs startline
      * if not returns date from start of common era
@@ -154,7 +161,9 @@ public class Parser {
     	}
     	return args;    	
     }
-
+  //@@author 
+    
+  //@@author A0139097U 
     private String getDeadlinesFromArgs(String args) {
     	if(args.isEmpty()){
     		return null;
@@ -166,7 +175,8 @@ public class Parser {
     	}
     	return args; 
 	}
-    
+  //@@author 
+  //@@author A0141812R
     private String getPriorityFromArgs(String args) {
         if (args.isEmpty()) {
             return "0";
@@ -175,7 +185,7 @@ public class Parser {
 
         return args;
     }
-
+  //@@author 
 
 	/**
      * Extracts the new person's tags from the add command's tag arguments string.
@@ -207,7 +217,7 @@ public class Parser {
 
         return new DeleteCommand(index.get());
     }	
-				
+  //@@author A0144202Y
 	private Command prepareComplete(String args) throws IllegalValueException {
   		  
         Optional<Integer> index = parseIndex(args);
@@ -218,6 +228,7 @@ public class Parser {
  
  		return new CompleteCommand(index.get());
 	}
+	//@@author 
     /**
      * Parses arguments in the context of the select task command.
      *
@@ -292,6 +303,7 @@ public class Parser {
      * @return the edit command
      * @throws ParseException
      */
+  //@@author A0141812R
     private Command prepareEdit(String args) throws ParseException{
     	final Matcher matcher = EDIT_DATA_ARGS_FORMAT.matcher(args.trim());
         // Validate arg string format
@@ -311,5 +323,5 @@ public class Parser {
             return new IncorrectCommand(ive.getMessage());
         }
     }
-
+  //@@author 
 }

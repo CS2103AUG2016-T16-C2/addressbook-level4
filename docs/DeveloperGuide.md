@@ -1,3 +1,4 @@
+//@@author A0139516B 
 # Developer Guide 
 
 * [Introduction](#introduction)
@@ -8,7 +9,7 @@
 * [Dev Ops](#dev-ops)
 * [Appendix A: User Stories](#appendix-a--user-stories)
 * [Appendix B: Use Cases](#appendix-b--use-cases)
-* [Appendix C: Non Functional Requirements](#appendix-c--non-functional-requirements)
+* [Appendix C: Non Functional Requirements (#appendix-c--non-functional-requirements)
 * [Appendix D: Glossary](#appendix-d--glossary)
 * [Appendix E: Product Survey's](#appendix-e--product-surveys)
 
@@ -16,7 +17,8 @@
 ## Introduction 
 
 This guide will allow you as a developer to obtain a better understanding of how 'The Practical Task Manager' functions. This task manager was designed based on two main principles, that the user would find it intuitive to use and simple to understand. 
-   
+//@@author 
+//@@author A0139097U
 ## Setting up
 
 #### Prerequisites
@@ -48,7 +50,7 @@ This guide will allow you as a developer to obtain a better understanding of how
   > * Depending on your connection speed and server load, it can even take up to 30 minutes for the set up to finish
       (This is because Gradle downloads library files from servers during the project set up process)
   > * If Eclipse auto-changed any settings files during the import process, you can discard those changes.
-  
+//@@author
 #### Troubleshooting project setup
 
 **Problem: Eclipse reports compile errors after new commits are pulled from Git**
@@ -60,11 +62,10 @@ This guide will allow you as a developer to obtain a better understanding of how
 * Reason: Required libraries may not have been downloaded during the project import. 
 * Solution: [Run tests using Gradle](UsingGradle.md) once (to refresh the libraries).
  
-
 ## Design
 
 ### Architecture
-
+//@@author A0141812R
 <img src="images/Architecture.png" width="600"><br>
 Figure 1: Architecture Diagram
 
@@ -90,7 +91,8 @@ The rest of the App consists four components.
 Each of the four components
 * Defines its _API_ in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
-
+//@@author
+//@@author A0144202Y
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java`
 interface and exposes its functionality using the `LogicManager.java` class.<br>
 <img src="images/logicDiagram.png" width="800"><br>
@@ -101,7 +103,8 @@ command `delete 3`.
 
 <img src="images/SDforDeleteTask.png" width="800">
 Figure 3: Sequence Diagram For Delete Person
-
+//@@author
+//@@author A0141812R
 >Note how the `Model` simply raises a `TaskManagerChangedEvent` when the Address Book data are changed,
  instead of asking the `Storage` to save the updates to the hard disk.
 
@@ -116,7 +119,8 @@ Figure 4: Sequence Diagram For Event Handling Of Delete Person
 The sections below give more details of each component.
 
 <div style="page-break-after: always;"></div>
-
+//@@author
+//@@author A0139516B
 ### UI component
 
 <img src="images/UIdiagram.png" width="800"><br>
@@ -168,7 +172,8 @@ The `Model`,
 * exposes a `UnmodifiableObservableList<ReadOnlyTask>` that can be 'observed' e.g. the UI can be bound to this list
   so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
-
+//@@author
+//@@author A0144202Y
 ### Storage component
 
 <img src="images/storageDiagram.jpg" width="800"><br>
@@ -184,6 +189,7 @@ The `Storage` component,
 
 Classes used by multiple components are in the `seedu.addressbook.commons` package.
 
+//@@author
 
 ## Implementation
 
@@ -418,9 +424,8 @@ Priority | As a ... | I want to ... | So that I can...
 ##### MSS
 
 > Main Success Scenario 
-
 ## Appendix E : Product Survey's
-
+//@@author A0141812R
 ### Google Calendar Quick Add 
 
 **Strengths**
@@ -432,7 +437,8 @@ Priority | As a ... | I want to ... | So that I can...
 
 1. Indicates an event clashes but does not prevent you from creating the event.
 2. Unable to customize how events appear on your calendar.
-
+//@@author 
+//@@author A0144202Y
 ### Todoist
 
 **Strengths**
@@ -467,3 +473,5 @@ Priority | As a ... | I want to ... | So that I can...
 
 1. Is cost prohibitive.
 2. Is unavailable on certain platforms.
+
+//@@author  
