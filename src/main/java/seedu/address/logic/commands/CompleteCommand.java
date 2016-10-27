@@ -31,6 +31,7 @@ public class CompleteCommand extends Command {
 
 	public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task manager.";
 	public static final String MESSAGE_COMPLETE_TASK_SUCCESS = "Task completed: %1$s";
+	public static final String MESSAGE_COMPLETED_FAILURE = "This task is already completed and cannot be completed twice.";
 
 	public final int targetIndex;
 	public Name name;
@@ -109,7 +110,10 @@ public class CompleteCommand extends Command {
            
 			if (!nameComplete.contains(" is completed"))
 				nameComplete = nameComplete + " is completed";
-
+			else{
+				return new CommandResult(MESSAGE_COMPLETED_FAILURE);
+				
+			}
 			name = new Name(nameComplete);
 
 		} catch (IllegalValueException e1) {
