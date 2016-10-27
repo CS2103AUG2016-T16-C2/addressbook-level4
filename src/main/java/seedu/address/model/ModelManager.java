@@ -86,6 +86,28 @@ public class ModelManager extends ComponentManager implements Model {
 		updateFilteredListToShowAll();
 		indicateAddressBookChanged();
 	}
+	
+	@Override
+	public void currentState(String command) {
+		stateManager.currentState(new TaskCommandState(addressBook, command));	
+	}
+
+	@Override
+	public String getPreviousState() throws FinishStateException {
+		TaskCommandState previousState = stateManager.getPreviousState();
+		return getState(previousState);
+	}
+
+	@Override
+	public String getInitialState() throws FinishStateException {
+		TaskCommandState initialState = stateManager.getInitialState();
+		return getState(initialState);
+	}
+	
+	private String getState(TaskCommandState state) {
+		resetData(state.getTaskCommand());
+		return state.getCommand();
+	}
 
 	// =========== Filtered Person List Accessors
 	// ===============================================================
