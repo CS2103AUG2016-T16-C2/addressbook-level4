@@ -48,7 +48,7 @@ Delete | `delete INDEX` | delete 2
 Find | `find KEYWORD <MORE_KEYWORDS>` | find CS2101 Report 
 List | `list`  
 Listall | `listall`
-Complete | `complete` INDEX | complete 1
+Complete | `complete INDEX` | complete 1
 Help | `help` 
 Select | `select INDEX` | select 4
 View | `view TASKNAME` | view Reservist
