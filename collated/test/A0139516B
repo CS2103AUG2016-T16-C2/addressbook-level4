@@ -1,0 +1,18 @@
+# A0139516B
+###### \java\seedu\address\testutil\TypicalTestPersons.java
+``` java
+	public static void loadAddressBookWithSampleData(TaskManager ab) {
+
+		try {
+			ab.addTask(new Task(alice));
+			ab.addTask(new Task(benson));
+			ab.addTask(new Task(carl));
+			ab.addTask(new Task(daniel));
+			ab.addTask(new Task(elle));
+			ab.addTask(new Task(fiona));
+			ab.addTask(new Task(george));
+		} catch (UniqueTaskList.DuplicateTaskException e) {
+			assert false : "not possible";
+		}
+	}
+```
