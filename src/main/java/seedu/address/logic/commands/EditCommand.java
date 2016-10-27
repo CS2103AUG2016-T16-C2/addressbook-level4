@@ -98,7 +98,6 @@ public class EditCommand extends Command {
         }
         
         toAdd = new Task(this.name, this.startline, this.deadline, this.priority, this.tagSet); //null for now
-
         assert model != null;
         try {
         	model.addPerson(toAdd);
