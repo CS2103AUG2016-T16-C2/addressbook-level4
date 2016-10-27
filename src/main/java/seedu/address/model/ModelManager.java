@@ -236,7 +236,6 @@ public class ModelManager extends ComponentManager implements Model {
 			return "name=" + String.join(", ", nameKeyWords);
 		}
 	}
-
 	private class ClashQualifier implements Qualifier {
 		private FilteredList<Task> tasks;
 
