@@ -1,7 +1,10 @@
 package seedu.address.ui;
 
 import javafx.application.Platform;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.ListCell;
@@ -12,8 +15,11 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
+import seedu.address.model.TaskManager;
 import seedu.address.model.task.ReadOnlyTask;
+import seedu.address.model.task.Task;
 
+import java.util.Comparator;
 import java.util.logging.Logger;
 
 /**
@@ -21,7 +27,8 @@ import java.util.logging.Logger;
  */
 public class PersonListPanel extends UiPart {
     private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
-    private static final String FXML = "PersonListPanel.fxml";
+    private static final String FXML = "PersonListPanel.fxml";    
+    private static final int IMPOSSIBLE_HIGH_PRIORITY_VALUE = 10;
     private VBox panel;
     private AnchorPane placeHolderPane;
 
@@ -59,11 +66,44 @@ public class PersonListPanel extends UiPart {
         setConnections(personList);
         addToPlaceholder();
     }
-
+    
+    /**
+     * Compares given deadlines.
+     * Compares priorities if the deadlines are equal
+     * Sets priority value of a floating task to impossible high priority value
+     * Sorts the floating tasks of the same deadlines as other tasks to lower position in the list
+     */
     private void setConnections(ObservableList<ReadOnlyTask> personList) {
-        personListView.setItems(personList);
+    	FilteredList<ReadOnlyTask> filteredData = new FilteredList<>(personList, p -> true);
+    	SortedList<ReadOnlyTask> sortedData = new SortedList<>(filteredData);
+    	sortedData.setComparator(new Comparator<ReadOnlyTask>() {
+			@Override
+			public int compare(ReadOnlyTask A, ReadOnlyTask B) {
+				int compareNo = (A.getDeadline().calendar).compareTo(B.getDeadline().calendar);
+				if(compareNo == 0) {
+					Integer a = Integer.parseInt(A.getPriority().value);
+					Integer b = Integer.parseInt(B.getPriority().value);
+					if (a == 0) {
+						a = IMPOSSIBLE_HIGH_PRIORITY_VALUE;
+					}
+					compareNo = (a).compareTo(b);
+				}
+				return compareNo;
+			}
+		});
+        personListView.setItems(sortedData);
         personListView.setCellFactory(listView -> new PersonListViewCell());
         setEventHandlerForSelectionChangeEvent();
+    }
+    
+    private ObservableValue<? extends Comparator<? super ReadOnlyTask>> observableDeadline(ObservableList<ReadOnlyTask> personList){
+    	personList.sort(new Comparator<ReadOnlyTask>() {
+			@Override
+			public int compare(ReadOnlyTask A, ReadOnlyTask B) {
+				return (A.getDeadline()).compareTo(B.getDeadline());
+			}
+		});
+    	return null;
     }
 
     private void addToPlaceholder() {

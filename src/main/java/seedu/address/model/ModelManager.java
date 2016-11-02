@@ -38,6 +38,9 @@ public class ModelManager extends ComponentManager implements Model {
 	private final TaskManager addressBook;
 	private final FilteredList<Task> filteredPersons;
 	private final StateManager stateManager;
+	
+	private static final String LIST_ARG_DEADLINE = "d/";
+	private static final String LIST_ARG_PRIORITY = "p/";
 
 	/**
 	 * Initializes a ModelManager with the given AddressBook AddressBook and its
@@ -184,7 +187,7 @@ public class ModelManager extends ComponentManager implements Model {
 		FilteredList<Task> incompleteTasks = new FilteredList<Task>(taskmanager.getTasks());
 		updateFilteredPersonList(new PredicateExpression(new ClashQualifier(incompleteTasks)));
 	}
-
+	
 	// ========== Inner classes/interfaces used for filtering
 	// ==================================================
 
@@ -296,5 +299,5 @@ public class ModelManager extends ComponentManager implements Model {
 				.asList(deadlineArguments.replaceFirst(" d/", "").split(" t/"));
 		return new HashSet<>(deadlineStrings);
 	}
-
+	
 }
