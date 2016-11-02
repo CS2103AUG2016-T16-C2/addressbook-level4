@@ -12,14 +12,20 @@ public class Priority {
     public static final String MESSAGE_PRIORITY_CONSTRAINTS =
             "Task priority should be an integer between 1 and 5";
     public static final String PRIORITY_VALIDATION_REGEX = "\\d+";
+    
+    private static final int COMPARE_PRIORITY_EQUAL = 0;
+    private static final int COMPARE_PRIORITY_SMALLER = -1;
+    private static final int COMPARE_PRIORITY_BIGGER = 1;
 
     public String value;
+    public int priorityValue;
     
     /**
      * Validates given priority.
      *
      * @throws IllegalValueException if given priority string is invalid.
      */
+
     public Priority(String priority) throws IllegalValueException {
         assert priority != null;
         priority = priority.trim();
@@ -27,6 +33,8 @@ public class Priority {
             throw new IllegalValueException(MESSAGE_PRIORITY_CONSTRAINTS);
         }
         this.value = priority;
+        
+        priorityValue = Integer.parseInt(priority);
     }
 
     /**
@@ -55,7 +63,23 @@ public class Priority {
     public int hashCode() {
         return value.hashCode();
     }
-    
- 
+
+    /**
+     * Compares given priorities.
+     * returns 0 if the priorities are equal
+     * returns 1 if the priority value compared with is bigger
+     * return -1 if the priority value compared with is smaller
+     */
+	public int compareTo(Priority priorityA) {
+		if (this.priorityValue > priorityA.priorityValue) {
+            return COMPARE_PRIORITY_BIGGER;
+        } else if (this.priorityValue < priorityA.priorityValue) {
+            return COMPARE_PRIORITY_SMALLER;
+        } else {
+            return COMPARE_PRIORITY_EQUAL;
+        }
+    }
 
 }
+
+    

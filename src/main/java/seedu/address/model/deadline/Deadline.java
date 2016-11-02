@@ -14,9 +14,13 @@ public class Deadline extends Startline {
     public static final String DEADLINE_VALIDATION_REGEX = "\\d+";
     public static final String DEADLINE_DASH_VALIDATION_REGEX = "[\\d]+-[\\d]+-[\\d]+";
 
+    private static final int COMPARE_DEADLINE_NULL = 0;
+    private static final int COMPARE_DEADLINE_SMALLER = -1;
+    private static final int COMPARE_DEADLINE_BIGGER = 1;
+
 	public String deadlineDate;
 	public boolean isOverdue = false;
-
+	
     /**
      * Validates given deadline.
      *
@@ -24,10 +28,27 @@ public class Deadline extends Startline {
      */
     public Deadline(String deadline) throws IllegalValueException {
     	super(deadline);
+
     }
     
     public void setOverdue(boolean value){
     	this.isOverdue = value;
     }
+    
+    /**
+     * Compares given deadlines.
+     * returns 0 if the deadlines are equal
+     * returns 1 if the deadlineDate compared with is later
+     * return -1 if the deadlineDate compared with is earlier
+     */
+	public int compareTo(Deadline deadlineA) {
+		if (this.deadlineDate == null) {
+            return COMPARE_DEADLINE_NULL;
+        } else if (Integer.parseInt(this.deadlineDate) > Integer.parseInt(deadlineA.deadlineDate)) {
+            return COMPARE_DEADLINE_BIGGER;
+        } else {
+           return COMPARE_DEADLINE_SMALLER;
+        }
+	}
 
 }
