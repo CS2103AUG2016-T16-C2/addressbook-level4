@@ -65,7 +65,7 @@ public class Priority {
     }
 
     /**
-     * Compares given deadlines.
+     * Compares given priorities.
      * returns 0 if the priorities are equal
      * returns 1 if the priority value compared with is bigger
      * return -1 if the priority value compared with is smaller

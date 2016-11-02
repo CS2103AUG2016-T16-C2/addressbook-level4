@@ -29,6 +29,7 @@ public class PersonListPanel extends UiPart {
     private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
     private static final String FXML = "PersonListPanel.fxml";    
     private static final int IMPOSSIBLE_HIGH_PRIORITY_VALUE = 10;
+    private static final int LOW_POSITION = 1;
     private VBox panel;
     private AnchorPane placeHolderPane;
 
@@ -79,6 +80,10 @@ public class PersonListPanel extends UiPart {
     	sortedData.setComparator(new Comparator<ReadOnlyTask>() {
 			@Override
 			public int compare(ReadOnlyTask A, ReadOnlyTask B) {
+				if (A.getDeadline().deadlineDate == null || B.getDeadline().deadlineDate == null) {
+					return LOW_POSITION;
+				}
+				else {
 				int compareNo = (A.getDeadline().calendar).compareTo(B.getDeadline().calendar);
 				if(compareNo == 0) {
 					Integer a = Integer.parseInt(A.getPriority().value);
@@ -89,6 +94,7 @@ public class PersonListPanel extends UiPart {
 					compareNo = (a).compareTo(b);
 				}
 				return compareNo;
+				}
 			}
 		});
         personListView.setItems(sortedData);
