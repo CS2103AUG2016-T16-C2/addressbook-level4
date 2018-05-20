@@ -38,7 +38,7 @@ public class Priority {
     	if(Integer.parseInt(test) >= 0 && Integer.parseInt(test) < 6) {
     		return test.matches(PRIORITY_VALIDATION_REGEX);
     	}
-    	return true;
+    	return false;
     }
     
     @Override

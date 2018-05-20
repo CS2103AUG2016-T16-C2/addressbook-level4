@@ -19,6 +19,7 @@ public class TestTask implements ReadOnlyTask {
 
     public TestTask() {
         tags = new UniqueTagList();
+        repeating = new Repeating();
     }
 
     public void setName(Name name) {

@@ -41,7 +41,6 @@ public class AddCommandTest extends TaskManagerGuiTest {
     }
 
     private void assertAddSuccess(TestTask taskToAdd, TestTask... currentList) {
-    	System.out.println(taskToAdd.getAddCommand());
         commandBox.runCommand(taskToAdd.getAddCommand());
 
         //confirm the new card contains the right data

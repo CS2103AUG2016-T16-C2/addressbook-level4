@@ -1,6 +1,7 @@
 package guitests.guihandles;
 
 import guitests.GuiRobot;
+import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 
 /**
@@ -28,6 +29,10 @@ public class CommandBoxHandle extends GuiHandle{
     public void runCommand(String command) {
         enterCommand(command);
         pressEnter();
+        // TODO: Ensure it only clicks the desired button
+        if(command == "clear") {
+        	guiRobot.clickOn("OK");
+        }
         guiRobot.sleep(200); //Give time for the command to take effect
     }
 
